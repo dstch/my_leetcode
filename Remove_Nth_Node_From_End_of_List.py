@@ -24,9 +24,12 @@ class ListNode:
 
 
 class Solution:
+    def __init__(self):
+        pass
+
     def removeNthFromEnd(self, head, n):
         """
-        [1] 1
+        [1,2] 2  [2]
         :type head: ListNode
         :type n: int
         :rtype: ListNode
@@ -36,7 +39,7 @@ class Solution:
         slow = head
         previous = None
         for i in range(n):
-            if fast != None and fast.next != None:
+            if fast != None:
                 fast = fast.next
             else:
                 raise ValueError("n is larger than length of list")
@@ -44,5 +47,14 @@ class Solution:
             fast = fast.next
             previous = slow
             slow = slow.next
-        previous.next = slow.next
-        return head
+        if previous == None:
+            return None
+        else:
+            previous.next = slow.next
+            return head
+
+
+if __name__ == '__main__':
+    solution = Solution()
+    node = ListNode(1)
+    solution.removeNthFromEnd(node, 1)
