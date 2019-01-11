@@ -48,7 +48,7 @@ class Solution:
             previous = slow
             slow = slow.next
         if previous == None:
-            return None
+            return slow.next
         else:
             previous.next = slow.next
             return head
