@@ -68,3 +68,22 @@ class Solution:
         elif len(lists) == 1:
             return lists[0]
         return self.mergeTwoLists(temp_list[0], temp_list[1])
+        temp_list = []
+        for node in lists:
+            if len(temp_list) < 2:
+                temp_list.append(node)
+            else:
+                temp_node = self.mergeTwoLists(temp_list[0], temp_list[1])
+                temp_list.clear()
+                temp_list.append(temp_node)
+                temp_list.append(node)
+        if len(lists) < 1:
+            return None
+        elif len(lists) == 1:
+            return lists[0]
+        return self.mergeTwoLists(temp_list[0], temp_list[1])
+
+
+if __name__ == '__main__':
+    ss = Solution()
+    ss.mergeKLists([[]])
