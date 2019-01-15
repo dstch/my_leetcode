@@ -75,14 +75,5 @@ if __name__ == '__main__':
     ss.mergeKLists([[]])
 
 
- #!/usr/bin/env python
-# encoding: utf-8
-"""
-@author: dstch
-@license: (C) Copyright 2013-2019, Regulus Tech.
-@contact: dstch@163.com
-@file: ${NAME}.py
-@time: ${DATE} ${TIME}
-@desc:
-"""
+
 
