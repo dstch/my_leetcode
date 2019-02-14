@@ -27,3 +27,29 @@ class Solution:
         :type head: ListNode
         :rtype: ListNode
         """
+        if head != None:
+            if head.next != None:
+                return_head = head.next
+                left = head
+                right = head.next
+                while left != None:
+                    right = left.next
+                    left.next = right.next
+                    right.next = left
+                    left = left.next
+                    # right = left.next
+            else:
+                return_head = head
+        else:
+            return head
+        return return_head
+
+
+if __name__ == '__main__':
+    head = ListNode(1)
+    head.next = ListNode(2)
+    head.next.next = ListNode(3)
+    head.next.next.next = ListNode(4)
+    s = Solution()
+    s.swapPairs(head)
+    # output: [2,1,3]
