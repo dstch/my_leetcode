@@ -27,22 +27,18 @@ class Solution:
         :type head: ListNode
         :rtype: ListNode
         """
-        if head != None:
-            if head.next != None:
-                return_head = head.next
-                left = head
-                right = head.next
-                while left != None:
-                    right = left.next
-                    left.next = right.next
-                    right.next = left
-                    left = left.next
-                    # right = left.next
-            else:
-                return_head = head
-        else:
-            return head
-        return return_head
+        return_head = ListNode(0)
+        return_head.next = head
+        left = head
+        head = return_head
+        while left is not None and left.next is not None:
+            right = left.next
+            head.next = right
+            left.next = right.next
+            right.next = left
+            head = left
+            left = left.next
+        return return_head.next
 
 
 if __name__ == '__main__':
