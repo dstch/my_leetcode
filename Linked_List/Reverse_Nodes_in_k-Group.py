@@ -4,7 +4,7 @@
 @author: dstch
 @license: (C) Copyright 2013-2019, Regulus Tech.
 @contact: dstch@163.com
-@file: Reverse Nodes in k-Group.py
+@file: Reverse_Nodes_in_k-Group.py
 @time: 2019/2/16 21:09
 @desc: Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.
 
@@ -30,26 +30,37 @@ class ListNode:
 
 class Solution:
     def reverseKGroup(self, head: 'ListNode', k: 'int') -> 'ListNode':
+        # add dummy node
+        tmp_head = ListNode(0)
+        tmp_head.next = head
         cur = head
-        return_head = head
+        return_head = tmp_head
         while cur is not None:
-            cur = self.reverseList(cur, k)
-            n = k
-            while n > 0 and cur is not None:
+            prev, cur = self.reverseList(cur, k)
+            tmp_head.next = prev
+            tmp_head = prev
+            cur = prev
+            for i in range(k):
                 cur = cur.next
-                n-=1
-        while k>0 and
 
-    def reverseList(self, sub_head: 'ListNode', n: 'int') -> 'ListNode':
+        return return_head.next
+
+    def reverseList(self, sub_head: 'ListNode', n: 'int') -> '[ListNode]':
         cur = sub_head
         prev = None
-        while cur is not None:
+        while cur is not None and n > 0:
             n -= 1
             tmp = cur.next
             cur.next = prev
             prev = cur
             cur = tmp
-        if n > 0:
-            return sub_head
-        else:
-            return prev
+        return prev, sub_head
+
+
+if __name__ == '__main__':
+    head = ListNode(1)
+    head.next = ListNode(2)
+    head.next.next = ListNode(3)
+    head.next.next.next = ListNode(4)
+    s = Solution()
+    s.reverseKGroup(head, 2)
