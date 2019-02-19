@@ -37,11 +37,15 @@ class Solution:
         return_head = tmp_head
         while cur is not None:
             next = cur
-            for i in range(k + 1):
+            for i in range(k):
+                if next is None:
+                    break
                 next = next.next
+            # last = next
             prev, cur = self.reverseList(cur, next)
-            tmp_head.next = prev
-            tmp_head = prev
+            cur.next=next
+            # tmp_head.next = prev
+            # tmp_head = prev
             cur = prev
             for i in range(k):
                 cur = cur.next
