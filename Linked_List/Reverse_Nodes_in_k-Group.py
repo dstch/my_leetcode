@@ -36,7 +36,10 @@ class Solution:
         cur = head
         return_head = tmp_head
         while cur is not None:
-            prev, cur = self.reverseList(cur, k)
+            next = cur
+            for i in range(k + 1):
+                next = next.next
+            prev, cur = self.reverseList(cur, next)
             tmp_head.next = prev
             tmp_head = prev
             cur = prev
@@ -45,11 +48,10 @@ class Solution:
 
         return return_head.next
 
-    def reverseList(self, sub_head: 'ListNode', n: 'int') -> '[ListNode]':
+    def reverseList(self, sub_head: 'ListNode', last: 'ListNode') -> '[ListNode]':
         cur = sub_head
         prev = None
-        while cur is not None and n > 0:
-            n -= 1
+        while cur != last:
             tmp = cur.next
             cur.next = prev
             prev = cur
