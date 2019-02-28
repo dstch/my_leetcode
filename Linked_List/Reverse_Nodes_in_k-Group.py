@@ -33,24 +33,24 @@ class Solution:
         # add dummy node
         tmp_head = ListNode(0)
         tmp_head.next = head
+        pre_head = tmp_head
         cur = head
-        return_head = tmp_head
         while cur is not None:
             next = cur
             for i in range(k):
                 if next is None:
                     break
                 next = next.next
-            # last = next
             prev, cur = self.reverseList(cur, next)
-            cur.next=next
-            # tmp_head.next = prev
-            # tmp_head = prev
+            cur.next = next
+            tmp_head.next = prev
+            tmp_head = cur
             cur = prev
             for i in range(k):
+                if cur is None:
+                    break
                 cur = cur.next
-
-        return return_head.next
+        return pre_head.next
 
     def reverseList(self, sub_head: 'ListNode', last: 'ListNode') -> '[ListNode]':
         cur = sub_head
@@ -69,4 +69,5 @@ if __name__ == '__main__':
     head.next.next = ListNode(3)
     head.next.next.next = ListNode(4)
     s = Solution()
-    s.reverseKGroup(head, 2)
+    result = s.reverseKGroup(head, 2)
+    print(result)
