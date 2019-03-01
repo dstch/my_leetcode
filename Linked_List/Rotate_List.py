@@ -37,4 +37,15 @@ class ListNode:
 
 class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
-        pass
+        if head == None or head.next == None or k == 1:
+            return head
+        cur = head
+        for i in range(k):
+            while cur.next.next is not None:
+                cur = cur.next
+            prev = cur
+            cur = cur.next
+            prev.next = cur.next
+            cur.next = head
+            head = cur
+        return cur
