@@ -37,7 +37,7 @@ class ListNode:
 
 class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
-        if head == None or head.next == None or k == 1:
+        if head == None or head.next == None:
             return head
         cur = head
         for i in range(k):
@@ -49,3 +49,10 @@ class Solution:
             cur.next = head
             head = cur
         return cur
+
+
+if __name__ == '__main__':
+    head = ListNode(1)
+    head.next = ListNode(2)
+    s = Solution()
+    s.rotateRight(head, 1)
