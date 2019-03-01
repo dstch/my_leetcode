@@ -36,11 +36,16 @@ class Solution:
         pre_head = tmp_head
         cur = head
         while cur is not None:
+            flag = False
             next = cur
             for i in range(k):
                 if next is None:
+                    if i < k:
+                        flag = True
                     break
                 next = next.next
+            if flag:
+                break
             prev, cur = self.reverseList(cur, next)
             cur.next = next
             tmp_head.next = prev
@@ -68,6 +73,7 @@ if __name__ == '__main__':
     head.next = ListNode(2)
     head.next.next = ListNode(3)
     head.next.next.next = ListNode(4)
+    head.next.next.next.next = ListNode(5)
     s = Solution()
-    result = s.reverseKGroup(head, 2)
+    result = s.reverseKGroup(head, 3)
     print(result)
