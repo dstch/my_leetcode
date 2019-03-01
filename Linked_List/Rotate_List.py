@@ -40,7 +40,14 @@ class Solution:
         if head == None or head.next == None:
             return head
         cur = head
-        for i in range(k):
+        # get the length of list
+        length = 0
+        while cur is not None:
+            length += 1
+            cur = cur.next
+        times = k % length
+        cur = head
+        for i in range(times):
             while cur.next.next is not None:
                 cur = cur.next
             prev = cur
