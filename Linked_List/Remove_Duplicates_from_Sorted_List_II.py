@@ -29,10 +29,32 @@ class ListNode:
 
 class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
+        temp_head = ListNode(-1)
+        temp_head.next = head
         cur = head
-        prev = cur
+        prev = temp_head
+        flag = False
         while cur is not None:
-            if cur.val == cur.next.val:
-                pass
+            if cur.next is not None:
+                if cur.val == cur.next.val:
+                    flag = True
+                else:
+                    if flag:
+                        prev.next = cur.next
+                        flag = False
+                    else:
+                        prev = prev.next
             else:
-                cur = cur.next
+                if flag:
+                    prev.next = cur.next
+            cur = cur.next
+        return temp_head.next
+
+
+if __name__ == '__main__':
+    head = ListNode(1)
+    head.next = ListNode(1)
+    head.next.next = ListNode(3)
+    s = Solution()
+    result = s.deleteDuplicates(head)
+    print(result)
