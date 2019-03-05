@@ -20,33 +20,33 @@ from util import ListNode
 
 class Solution:
     def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
-        temp_head = ListNode(-1)
-        temp_head.next = head
+        if m == n:
+            return head
+        count = 1
+        first = head
+        prev = None
         cur = head
-        prev = temp_head
-        cur_1 = head
-        prev_1 = temp_head
-        cur_2 = cur_1
-        prev_2 = prev_1
-        for i in range(n):
-            if i + 1 == m:
-                cur_1 = cur
-                prev_1 = prev
-            elif i + 1 == n:
-                cur_2 = cur
-                prev_2 = prev
-            cur = cur.next
-            prev = prev.next
-        prev_2.next = cur_1
-        next = cur_1.next
-        cur_1.next = cur_2.next
-        prev_1.next = cur_2
-        cur_2.next = next
-        return temp_head.next
+        while cur is not None:
+            if count < m:
+                first = cur
+                cur = cur.next
+            elif count >= m and count <= n:
+                tmp = cur.next
+                cur.next = prev
+                prev = cur
+                cur = tmp
+            else:
+                first.next = prev
+                while prev.next is not None:
+                    prev = prev.next
+                prev.next = cur
+                break
+            count += 1
+        return first
 
 
 if __name__ == '__main__':
-    head = ListNode.build_linked_list([1, 2, 3, 4])
+    head = ListNode.build_linked_list([3, 5])
     s = Solution()
-    result = s.reverseBetween(head, 1, 4)
+    result = s.reverseBetween(head, 1, 1)
     print(result)
