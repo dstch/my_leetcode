@@ -16,14 +16,43 @@ Input: head = 1->4->3->2->5->2, x = 3
 Output: 1->2->2->4->3->5
 """
 
-
-# Definition for singly-linked list.
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+from util import ListNode
 
 
 class Solution:
     def partition(self, head: ListNode, x: int) -> ListNode:
-        pass
+        # if head is None or head.next is None:
+        #    return head
+        temp_head = ListNode(-1)
+        temp_head.next = head
+        # find the first bigger number position
+        cur = head
+        prev = temp_head
+        while cur is not None:
+            if cur.val >= x:
+                break
+            cur = cur.next
+            prev = prev.next
+        # find the less number
+        cur_2 = cur
+        prev_2 = prev
+        while cur_2 is not None:
+            if cur_2.val < x:
+                # move the node position
+                prev_2.next = cur_2.next
+                prev.next = cur_2
+                cur_2.next = cur
+                # update all pointer
+                prev = cur_2
+                cur_2 = prev_2.next
+            else:
+                cur_2 = cur_2.next
+                prev_2 = prev_2.next
+        return temp_head.next
+
+
+if __name__ == '__main__':
+    head = ListNode.build_linked_list([1, 1])
+    s = Solution()
+    result = s.partition(head, 0)
+    print(result)
