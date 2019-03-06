@@ -48,5 +48,5 @@ class Solution:
 if __name__ == '__main__':
     head = ListNode.build_linked_list([3, 5])
     s = Solution()
-    result = s.reverseBetween(head, 1, 1)
-    print(result)
+    result = s.reverseBetween(head, 1, 2)
+    print(ListNode.show_linked_list(result))

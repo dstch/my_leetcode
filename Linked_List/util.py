@@ -24,3 +24,11 @@ class ListNode:
             head.next = ListNode(n)
             head = head.next
         return return_head
+
+    @staticmethod
+    def show_linked_list(head):
+        return_list = []
+        while head is not None:
+            return_list.append(head.val)
+            head = head.next
+        return return_list
