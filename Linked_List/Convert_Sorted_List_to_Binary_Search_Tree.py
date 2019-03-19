@@ -36,4 +36,28 @@ class TreeNode:
 
 class Solution:
     def sortedListToBST(self, head: ListNode) -> TreeNode:
-        pass
+        if head is None:
+            return None
+        if head.next is None:
+            return TreeNode(head.val)
+        # find middle node by fast & slow point
+        fast = head
+        slow = head
+        last = head
+        while fast.next is not None and fast.next.next is not None:
+            last = slow
+            fast = fast.next.next
+            slow = slow.next
+        last.next = None
+        fast = slow.next
+        cur = TreeNode(slow.val)
+        if head != slow:
+            cur.left = self.sortedListToBST(head)
+        cur.right = self.sortedListToBST(fast)
+        return cur
+
+
+if __name__ == '__main__':
+    head = ListNode.build_linked_list([-10, -3, 0, 5, 9])
+    s = Solution()
+    print(s.sortedListToBST(head))
