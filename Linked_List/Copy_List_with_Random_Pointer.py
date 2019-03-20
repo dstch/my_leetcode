@@ -34,15 +34,32 @@ class Node:
 
 class Solution:
     def copyRandomList(self, head: 'Node') -> 'Node':
-        res = Node(head.val, None, None)
-        cur = res.next
+        if head is None:
+            return None
+        temp_head = Node(head.val, None, None)
+        node = temp_head
+        cur = head.next
         dic = {}
-        dic[res] = head.random
-        head = head.next
-        while head is not None:
-            cur = Node(head.val, None, None)
-            dic[cur]=head.random
-            cur=cur.next
-            head=head.next
-        for r in dic:
+        dic[head] = temp_head
+        while cur is not None:
+            tmp = Node(cur.val, None, None)
+            node.next = tmp
+            dic[cur] = tmp
+            cur = cur.next
+            node = node.next
+        cur = head
+        node = temp_head
+        while cur is not None:
+            if cur.random is None:
+                node.random = None
+            else:
+                node.random = dic[cur.random]
+            cur = cur.next
+            node = node.next
+        return temp_head
 
+
+if __name__ == '__main__':
+    head = Node(-1, None, None)
+    s = Solution()
+    s.copyRandomList(head)
