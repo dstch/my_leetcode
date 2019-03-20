@@ -48,8 +48,9 @@ class Solution:
             last = slow
             fast = fast.next.next
             slow = slow.next
-        last.next = None
+
         fast = slow.next
+        last.next = None
         cur = TreeNode(slow.val)
         if head != slow:
             cur.left = self.sortedListToBST(head)
