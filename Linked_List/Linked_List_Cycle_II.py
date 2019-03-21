@@ -20,11 +20,26 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
+        # 记录第一次相遇后，slow走过的距离；
+        # 此时，slow走过a+b，fast走过a+b+c+b；
+        # fast走过的是slow走过的两倍，有2（a+b）= a+b+c+b
+        # 环长度是L=b+c=a+b，即相遇时slow走过的距离
+        # 同时，因为a=c，从相遇点和起始点一起出发，相遇的地方即环起始点
         slow = head
         fast = head
+        flag = False
         while fast is not None and fast.next is not None:
             fast = fast.next.next
-            if fast == slow:
-                return slow
             slow = slow.next
-        return None
+            if fast == slow:
+                flag = True
+                break
+
+        if flag:
+            fast = head
+            while fast != slow:
+                fast = fast.next
+                slow = slow.next
+            return slow
+        else:
+            return None
