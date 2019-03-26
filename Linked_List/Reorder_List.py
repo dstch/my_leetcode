@@ -30,12 +30,18 @@ class Solution(object):
         """
         if head is None:
             return head
-        reverse_head = self.reverseList(head)
+        # split list
+        middle_head = self.splitList(head)
+        tmp = middle_head.next
+        middle_head.next = None
+        middle_head = tmp
+        # reverse list
+        reverse_head = self.reverseList(middle_head)
         return_head = head
         cur = head
         reverse_cur = reverse_head
-        while cur is not None:
-            if cur.val != reverse_cur.val:
+        while cur is not None and reverse_cur is not None:
+            if cur != reverse_cur:
                 tmp = cur.next
                 cur.next = reverse_cur
                 reverse_cur = tmp
@@ -45,7 +51,25 @@ class Solution(object):
                 break
         return return_head
 
+    def splitList(self, head):
+        fast = head
+        slow = head
+        while fast is not None and fast.next is not None:
+            fast = fast.next.next
+            slow = slow.next
+        return slow
+
     def reverseList(self, head):
+        cur = head
+        prev = None
+        while cur is not None:
+            tmp = cur.next
+            cur.next = prev
+            prev = cur
+            cur = tmp
+        return prev
+
+    def reverseList2(self, head):
         cur = head
         c = ListNode(head.val)
         prev = None
