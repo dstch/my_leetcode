@@ -17,16 +17,18 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
-        temp_head = ListNode(-1)
+        if head is None or head.next is None:
+            return head
+        temp_head = ListNode(0)
         temp_head.next = head
         cur = head
         pre = temp_head
         while cur is not None:
-            tmp = cur.next
+            tmp = temp_head
             # find insert position
-            while tmp is not None and tmp.val <= cur.val:
+            while tmp.next != cur and tmp.next.val < cur.val:
                 tmp = tmp.next
-            if tmp is not None and tmp != cur.next:
+            if tmp.next != cur:
                 pre.next = cur.next
                 cur.next = tmp.next
                 tmp.next = cur
@@ -37,6 +39,6 @@ class Solution(object):
 
 
 if __name__ == '__main__':
-    head = ListNode.build_linked_list([4, 2, 1, 3])
+    head = ListNode.build_linked_list([-1, 5, 3, 4, 0])
     s = Solution()
     print(ListNode.show_linked_list(s.insertionSortList(head)))
