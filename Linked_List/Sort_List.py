@@ -61,18 +61,19 @@ class Solution(object):
                 temp_head.next = first
                 first = last
             tmp = temp_head.next
-            pre = None
+            pre = temp_head
             while first is not None and tmp is not None:
                 if tmp.val > first.val:
                     t = first.next
-                    first.next = tmp.next
-                    tmp.next = first
-                    pre = tmp.next
-                    tmp = tmp.next.next
+                    pre.next = first
+                    first.next = tmp
+                    pre = first
                     first = t
+                    # tmp = tmp.next
                 else:
                     pre = tmp
                     tmp = tmp.next
+                    # first = first.next
             if first is not None:
                 pre.next = first
             return temp_head.next
@@ -84,13 +85,14 @@ class Solution(object):
                 mid = find_mid(head)
                 l = merge_sort(head)
                 r = merge_sort(mid)
-                merge_array(l, r)
-            return head
+                return merge_array(l, r)
 
+        if head is None:
+            return head
         return merge_sort(head)
 
 
 if __name__ == '__main__':
-    head = ListNode.build_linked_list([-1, 5, 3, 4, 0])
+    head = ListNode.build_linked_list([4, 2, 1, 3])  # ([-1, 5, 3, 4, 0])
     s = Solution()
     print(ListNode.show_linked_list(s.sortList2(head)))
