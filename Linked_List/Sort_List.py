@@ -42,12 +42,15 @@ class Solution(object):
         :return:
         """
 
-        def find_mid(head, end):
+        def find_mid(head):
             slow = head
             fast = head
-            while fast.next is not None and fast.next != end:
+            pre = None
+            while fast is not None and fast.next is not None:
+                pre = slow
                 slow = slow.next
                 fast = fast.next.next
+            pre.next = None
             return slow
 
         def merge_array(first, last):
@@ -58,28 +61,33 @@ class Solution(object):
                 temp_head.next = first
                 first = last
             tmp = temp_head.next
+            pre = None
             while first is not None and tmp is not None:
                 if tmp.val > first.val:
                     t = first.next
                     first.next = tmp.next
                     tmp.next = first
+                    pre = tmp.next
                     tmp = tmp.next.next
                     first = t
                 else:
+                    pre = tmp
                     tmp = tmp.next
             if first is not None:
-                tmp.next = first
+                pre.next = first
             return temp_head.next
 
-        def merge_sort(head, end):
-            if head != end:
-                mid = find_mid(head, end)
-                merge_sort(head, mid)
-                merge_sort(mid.next, end)
-                merge_array(head, end)
+        def merge_sort(head):
+            if head.next is None:
+                return head
+            else:
+                mid = find_mid(head)
+                l = merge_sort(head)
+                r = merge_sort(mid)
+                merge_array(l, r)
             return head
 
-        return merge_sort(head, None)
+        return merge_sort(head)
 
 
 if __name__ == '__main__':
