@@ -41,7 +41,8 @@ class Solution(object):
             slow = tmp
         first = pre
         last = slow
-        if first.val != last.val:
+        # find the list is even by fast node
+        if fast is not None:
             last = last.next
         while first is not None and last is not None and first.val == last.val:
             first = first.next
