@@ -38,18 +38,17 @@ class Node:
 
 class Solution:
     def flatten(self, head: 'Node') -> 'Node':
-        temp_head = Node(-1, None, head, None)
-        cur = head
-        node_list = []
-        while cur.next is not None:
-            if cur.child is not None:
-                tmp = cur.child
-                cur.child = None
-                tmp.prev = None
-                node_list.append(tmp)
-            cur = cur.next
-        for tmp in node_list[::-1]:
-            cur.next = tmp
-            while cur.next is not None:
-                cur = cur.next
-        return temp_head.next
+        p = head
+        while p:
+            if p.child is not None:
+                temp = p.next
+                p.next = self.flatten(p.child)
+                p.next.prev = p
+                p.child = None
+                while p.next is not None:
+                    p = p.next
+                p.next = temp
+                if temp is not None:
+                    temp.prev = p
+            p = p.next
+        return head
