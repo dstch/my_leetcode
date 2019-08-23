@@ -21,29 +21,30 @@ Output: 4
 
 class Solution:
     def findKthLargest(self, nums, k) -> int:
-        i = 0
-
-        while len(nums) != 0:
-            pi = len(nums) // 2
-            p = nums[pi]
-            left, right, i = self.partition(nums, p)
-            if k < i:
-                nums = left
+        l = 0
+        r = len(nums) - 1
+        key = len(nums) - k
+        mid = self.partition(nums, l, r)
+        while mid != key:
+            if mid < key:
+                mid = self.partition(nums, mid + 1, r)
             else:
-                nums = right
-        return p
+                mid = self.partition(nums, l, mid - 1)
+        return nums[mid]
 
-    def partition(self, nums, p):
-        left = []
-        right = []
-        for i in range(len(nums)):
-            if nums[i] > p:
-                left.append(nums[i])
-            elif nums[i] < p:
-                right.append(nums[i])
-        return left, right, len(left)
+    def partition(self, nums, l, r):
+        p = nums[l]
+        while l < r:
+            while l < r and p <= nums[r]:
+                r -= 1
+            nums[l] = nums[r]
+            while l < r and p >= nums[l]:
+                l += 1
+            nums[r] = nums[l]
+        nums[r] = p
+        return l
 
 
 if __name__ == '__main__':
     s = Solution()
-    print(s.findKthLargest([3, 2, 3, 1, 2, 4, 5, 5, 6], 4))
+    print(s.findKthLargest([2, 1], 1))
