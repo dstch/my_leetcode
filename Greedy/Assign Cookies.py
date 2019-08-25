@@ -18,8 +18,8 @@ You need to output 1.
 
 class Solution:
     def findContentChildren(self, g, s) -> int:
-        g = self.sorted(g)
-        s = self.sorted(s)
+        self.quick_sort(g, 0, len(g) - 1)
+        self.quick_sort(s, 0, len(s) - 1)
         i = j = res = 0
         while i < len(s) and j < len(g):
             if s[i] >= g[j]:
@@ -28,12 +28,26 @@ class Solution:
             i += 1
         return res
 
-    def sorted(self, nums):
-        for i in range(0, len(nums) - 1):
-            for j in range(1, len(nums) - i):
-                if nums[j - 1] > nums[j]:
-                    nums[j - 1], nums[j] = nums[j], nums[j - 1]
-        return nums
+    def quick_sort(self, alist, start, end):
+        if start >= end:
+            return
+        mid = alist[start]
+        left = start
+        right = end
+        # left与right未重合，就向中间移动
+        while left < right:
+            while left < right and alist[right] >= mid:
+                right -= 1
+            alist[left] = alist[right]
+            while left < right and alist[left] < mid:
+                left += 1  # a_list = [1, 12, 22, 34, 21, 4, 6, 8, 11, 54, 36, 7, 3, 0, 60, 62, 63]
+            alist[right] = alist[left]
+        # 从循环退出后，left与right相遇，即left==right
+        alist[left] = mid
+        # 对左边部分执行快速排序
+        self.quick_sort(alist, start, left - 1)
+        # 对右边部分执行快速排序
+        self.quick_sort(alist, left + 1, end)
 
 
 if __name__ == '__main__':
