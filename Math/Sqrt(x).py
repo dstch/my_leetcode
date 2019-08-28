@@ -31,6 +31,7 @@ class Solution:
         if x <= 1:
             return x
         result = x
+        # 牛顿迭代法：xn+1=xn-f(x)/f'(x)  其中f(x)为 x^2-r=0
         while result > x / result:
             result = int(result - 0.5 * (result - x / result))
         return int(result)
