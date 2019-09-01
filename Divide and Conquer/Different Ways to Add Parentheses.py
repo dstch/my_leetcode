@@ -32,3 +32,28 @@ Explanation:
 
 class Solution:
     def diffWaysToCompute(self, input: str) -> List[int]:
+        fs = ['+', '-', '*']
+        res = []
+        if fs[0] not in input and fs[1] not in input and fs[2] not in input:
+            return [int(input)]
+        for index, n in enumerate(input):
+            if n in fs:
+                left = self.diffWaysToCompute(input[:index])
+                right = self.diffWaysToCompute(input[index + 1:])
+                for l in left:
+                    for r in right:
+                        res.append(self.cal_num(input[index], l, r))
+        return res
+
+    def cal_num(self, f, l, r):
+        if f == '+':
+            return l + r
+        elif f == '-':
+            return l - r
+        else:
+            return l * r
+
+
+if __name__ == '__main__':
+    s = Solution()
+    print(s.diffWaysToCompute("2-1-1"))
