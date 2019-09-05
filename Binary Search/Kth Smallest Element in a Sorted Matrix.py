@@ -22,3 +22,18 @@ k = 8,
 return 13.
 
 """
+
+
+class Solution(object):
+    def kthSmallest(self, matrix, k):
+        """
+        :type matrix: List[List[int]]
+        :type k: int
+        :rtype: int
+        """
+        n = len(matrix)
+        if k <= n:
+            return matrix[0][k]
+        i = int(k / n)
+        j = k % n
+        return matrix[i][j]
