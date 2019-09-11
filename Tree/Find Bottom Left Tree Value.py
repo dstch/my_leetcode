@@ -53,7 +53,7 @@ class Solution:
             n = len(q)
             for i in range(n):
                 p = q[0]
-                q.pop()
+                q.pop(0)
                 if i == 0:
                     res = p.val
                 if p.left is not None:
@@ -61,3 +61,16 @@ class Solution:
                 if p.right is not None:
                     q.append(p.right)
         return res
+
+
+class Solution1:
+    def findBottomLeftValue(self, root: TreeNode) -> int:
+        q = [root]
+        while len(q) > 0:
+            root = q[0]
+            q.pop(0)
+            if root.right is not None:
+                q.append(root.right)
+            if root.left is not None:
+                q.append(root.left)
+        return root.val
