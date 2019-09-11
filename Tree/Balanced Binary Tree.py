@@ -61,3 +61,24 @@ class Solution:
         if root is None:
             return 0
         return 1 + max(self.get_depth(root.left), self.get_depth(root.right))
+
+
+class Solution1:
+    def isBalanced(self, root: TreeNode) -> bool:
+        if self.check_depth(root) == -1:
+            return False
+        return True
+
+    def check_depth(self, root):
+        if root is None:
+            return 0
+        l = self.check_depth(root.left)
+        if l == -1:
+            return -1
+        r = self.check_depth(root.right)
+        if r == -1:
+            return -1
+        if abs(l - r) > 1:
+            return -1
+        else:
+            return 1 + max(l, r)
