@@ -31,9 +31,59 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
+        l = matrix[0][0]
+        r = matrix[-1][-1]
+        while l <= r:
+            mid = (l + r) // 2
+            cnt = self.search(matrix, mid)
+            if cnt < k:
+                l = mid + 1
+            else:
+                r = mid - 1
+        return l
+
+    def search(self, matrix, mid):
+        cnt = 0
         n = len(matrix)
-        if k <= n:
-            return matrix[0][k]
-        i = int(k / n)
-        j = k % n
-        return matrix[i][j]
+        for i in range(n):
+            if mid > matrix[i][-1]:
+                cnt += n
+            else:
+                for j in range(n):
+                    if mid >= matrix[i][j]:
+                        cnt += 1
+        return cnt
+
+
+class Solution1(object):
+    def kthSmallest(self, matrix, k):
+        """
+        :type matrix: List[List[int]]
+        :type k: int
+        :rtype: int
+        """
+        lo, hi = matrix[0][0], matrix[-1][-1]
+        while lo <= hi:
+            mid = (lo + hi) >> 1
+            loc = self.countLower(matrix, mid)
+            if loc >= k:
+                hi = mid - 1
+            else:
+                lo = mid + 1
+        return lo
+
+    def countLower(self, matrix, num):
+        i, j = len(matrix) - 1, 0
+        cnt = 0
+        while i >= 0 and j < len(matrix[0]):
+            if matrix[i][j] <= num:
+                cnt += i + 1
+                j += 1
+            else:
+                i -= 1
+        return cnt
+
+
+if __name__ == '__main__':
+    s = Solution()
+    print(s.kthSmallest([[1, 2], [1, 3]], 3))
