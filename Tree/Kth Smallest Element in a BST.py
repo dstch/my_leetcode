@@ -44,6 +44,7 @@ class TreeNode:
         self.right = None
 
 
+# BST中序遍历后是一个有序数组
 class Solution:
     def kthSmallest(self, root: TreeNode, k: int) -> int:
         return self.get_list(root, [])[k]
@@ -56,3 +57,19 @@ class Solution:
         if root.right is not None:
             res = self.get_list(root.right, res)
         return res
+
+
+# 分治思想
+class Solution1:
+    def kthSmallest(self, root: TreeNode, k: int) -> int:
+        cnt = self.count(root.left)
+        if k <= cnt:
+            return self.kthSmallest(root.left, k)
+        elif k > cnt + 1:
+            return self.kthSmallest(root.right, k - cnt - 1)
+        return root.val
+
+    def count(self, root):
+        if root is None:
+            return 0
+        return 1 + self.count(root.left) + self.count(root.right)

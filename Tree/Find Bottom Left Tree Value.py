@@ -44,7 +44,7 @@ class TreeNode:
         self.left = None
         self.right = None
 
-
+# 层序遍历，正常顺序
 class Solution:
     def findBottomLeftValue(self, root: TreeNode) -> int:
         q = [root]
@@ -62,7 +62,7 @@ class Solution:
                     q.append(p.right)
         return res
 
-
+# 层序遍历，逆向顺序 trick
 class Solution1:
     def findBottomLeftValue(self, root: TreeNode) -> int:
         q = [root]
