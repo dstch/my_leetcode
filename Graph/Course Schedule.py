@@ -31,6 +31,7 @@ Explanation: There are a total of 2 courses to take.
 import collections
 
 
+# DFS
 class Solution(object):
     def canFinish(self, numCourses, prerequisites):
         """
@@ -57,6 +58,33 @@ class Solution(object):
             if not self.dfs(graph, visited, j):
                 return False
         visited[i] = 2
+        return True
+
+
+# BFS
+class Solution1(object):
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        graph = collections.defaultdict(list)
+        indegress = collections.defaultdict(int)
+        for u, v in prerequisites:
+            graph[u].append(v)
+            indegress[v] += 1
+        for i in range(numCourses):
+            zerodegress = False
+            for j in range(numCourses):
+                if indegress[j] == 0:
+                    zerodegress = True
+                    break
+            if not zerodegress:
+                return False
+            indegress[j] = -1
+            for node in graph[j]:
+                indegress[node] -= 1
         return True
 
 
