@@ -42,25 +42,19 @@ class Solution(object):
         :type edges: List[List[int]]
         :rtype: List[int]
         """
-        graph = collections.defaultdict(list)
-        for u, v in edges:
-            graph[u].append(v)
-        N = len(edges) + 1
-        visited = [0] * N
-        for i in range(N):
-            result = self.dfs(graph, visited, i)
-            if result != -1:
-                return [i, result]
-        return []
+        tree = [-1] * (len(edges) + 1)  # 保存的是每个点的上级，最后会变成每个点的根节点
+        for edge in edges:
+            a = self.find_root(tree, edge[0])
+            b = self.find_root(tree, edge[1])
+            if a != b:
+                tree[a] = b
+            else:
+                return edge
 
-    def dfs(self, graph, visited, i):
-        if visited == 1:
-            return i
-        if visited == 2:
-            return -1
-        visited[i] = 1
-        for j in graph[i]:
-            if not self.dfs(graph, visited, j):
-                return j
-        visited[i] = 2
-        return -1
+    def find_root(self, tree, root):
+        if tree[root] == -1:
+            return root
+        else:
+            temp_root = self.find_root(tree, tree[root])
+            tree[root] = temp_root  # 压缩路径
+            return temp_root
