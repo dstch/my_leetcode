@@ -27,5 +27,15 @@ Explanation: Because the path 1→3→1→1→1 minimizes the sum.
 
 class Solution:
     def minPathSum(self, grid: List[List[int]]) -> int:
-
-    def deep(self,grid,i,j):
+        paths = [[0 for _ in range(len(grid[0]))] for _ in range(len(grid))]
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if i == 0 and j == 0:
+                    paths[i][j] = grid[i][j]
+                elif i == 0:
+                    paths[i][j] = grid[i][j] + paths[i][j - 1]
+                elif j == 0:
+                    paths[i][j] = grid[i][j] + paths[i - 1][j]
+                else:
+                    paths[i][j] = min(grid[i][j] + paths[i - 1][j], grid[i][j] + paths[i][j - 1])
+        return paths[-1][-1]
