@@ -28,12 +28,13 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        return self.foo(n)
+        dp = [1 for _ in range(n + 1)]
+        for i in range(n + 1)[3:]:
+            for j in range(i):
+                dp[i] = max(dp[i], j * (i - j), j * dp[i - j])
+        return dp[n]
 
-    def foo(self, n):
-        if n <= 3:
-            return n
-        else:
-            y = n // 2
-            x = n / 2
-            return self.foo(x + y) * self.foo(x)
+
+if __name__ == '__main__':
+    s = Solution()
+    print(s.integerBreak(10))
