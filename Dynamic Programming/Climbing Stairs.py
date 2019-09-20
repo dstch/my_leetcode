@@ -5,7 +5,7 @@
 @license: (C) Copyright 2013-2019, Regulus Tech.
 @contact: dstch@163.com
 @file: Climbing Stairs.py
-@time: 2019/9/19 20:33
+@time: 2019/9/19 22:35
 @desc: You are climbing a stair case. It takes n steps to reach to the top.
 
 Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
@@ -33,9 +33,9 @@ Explanation: There are three ways to climb to the top.
 """
 
 
-class Solution(object):
-    def climbStairs(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        a, b = 0, 1
+        for i in range(n):
+            a, b = b, a + b
+        return b
