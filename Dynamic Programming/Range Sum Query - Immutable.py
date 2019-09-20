@@ -22,17 +22,19 @@ sumRange(0, 5) -> -3
 class NumArray:
 
     def __init__(self, nums: List[int]):
-        n = len(nums)
-        self.matrix = [[0 for x in range(n)] for _ in range(n)]
-        for i in range(n-1):
-            for j in range(n)[i:]:
-                self.matrix[i][j]=self.matrix[i]
+        self.l = []
+        for index, n in enumerate(nums):
+            if index == 0:
+                self.l.append(n)
+            else:
+                self.l.append(n + self.l[index - 1])
 
     def sumRange(self, i: int, j: int) -> int:
-        res = 0
-        for i in self.l[i:j]:
-            res += i
-        return res
+        if i == 0:
+            return self.l[j]
+        else:
+            return self.l[j] - self.l[i - 1]
+
 # Your NumArray object will be instantiated and called as such:
 # obj = NumArray(nums)
 # param_1 = obj.sumRange(i,j)
