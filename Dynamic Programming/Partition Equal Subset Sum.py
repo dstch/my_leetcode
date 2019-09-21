@@ -44,7 +44,9 @@ class Solution:
         target = s >> 1
         dp = [False for _ in range(target + 1)]
         dp[0] = True
+        # 思想：前i个数字的和能不能构成j
         for i in range(len(nums)):
+            # 从后往前递归，是因为如果从前往后，会让前面的数影响后面的计算
             for j in range(nums[i], target + 1)[::-1]:
                 dp[j] = dp[j] or dp[j - nums[i]]
         return dp[target]
@@ -52,5 +54,5 @@ class Solution:
 
 if __name__ == '__main__':
     s = Solution()
-    r = s.canPartition([1, 2, 3, 4, 5, 6, 7])
+    r = s.canPartition([1,5,11,5])
     print(r)
