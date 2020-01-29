@@ -1,3 +1,11 @@
+'''
+@Author: your name
+@Date: 2020-01-28 11:56:40
+@LastEditTime : 2020-01-29 20:50:17
+@LastEditors  : Please set LastEditors
+@Description: In User Settings Edit
+@FilePath: \my_leetcode\Bit Manipulation\Single Number III.py
+'''
 #!/usr/bin/env python
 # encoding: utf-8
 """
@@ -28,7 +36,9 @@ class Solution(object):
             sum = sum ^ n
         mask = 1
         while sum & mask == 0:
+            # 这里通过and找到sum中任意一个1的位置
             mask = mask << 1
+        # 通过任意一个1，将所有nums分为两部分
         for n in nums:
             if n & mask == 0:
                 num1 = num1 ^ n
