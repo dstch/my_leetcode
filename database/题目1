@@ -1,0 +1,49 @@
+题干：
+
+      已知有如下4张表：
+
+      员工表：employee(id,name,dept_id)，id为员工编号，name为员工姓名，dept_id为部门编号；
+
+      任务表：task(eid,pid,value)，eid为员工编号，pid为项目编号，value为任务的工作量；
+
+      项目表：project(id,name，pm_id),id为项目编号，name为项目名称，pm_id为该项目的负责人；
+
+      部门表：department(id,name,leader_id),id为部门编号，name为部门名称，leader_id为该部门领导的员工编号。
+
+      其中，每个任务都会关联一个项目，每个项目可能对应有多个任务，每个员工可以领取多个任务。
+
+
+请依次回答以下问题：
+
+      问题（1）：查询王五负责的每个项目的任务数。
+
+      问题（2）：查询小明参与的项目中，每个任务的任务量都大于30的项目的项目名称。
+
+       问题（1）评分标准：
+
+1. count使用正确，2分
+
+2. 连接查询正确，每个3分，共6分
+
+3. 结果正确，2分
+
+
+正确答案：
+
+select count(t.id) from task as t inner join project as p on p.id=t.pid inner join employee as e as e.id=p.pm_id where e.name="王五"；
+
+
+
+问题（2）评分标准：
+
+1. distinct使用正确，1分
+
+2. 分组及min使用正确各2分，共4分
+
+3. 连接查询正确，每个2分，共4分
+
+4. 结果正确，1分
+
+
+正确答案：
+select p.name from project as p inner join task as t on t.pid=p.id group by t.pid having min(t.value)>30 where p.id in (select distinct(t.pid) from task as t inner join employee as e on e.id=t.eid where e.name="小明")
