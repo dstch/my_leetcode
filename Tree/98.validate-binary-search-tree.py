@@ -12,31 +12,17 @@
 #         self.left = left
 #         self.right = right
 
+import sys
+
 
 class Solution:
     def isValidBST(self, root: TreeNode) -> bool:
-        def func(root_node, flag):
-            if root_node is None or not flag:
-                return flag
-            if root_node.left is not None:
-                flag = flag and func(root_node.left, flag)
-            else:
-                if root_node.right is None:
-                    return flag and True
-                else:
-                    return flag and root_node.right.val > root_node.val
-            if root_node.right is not None:
-                flag = flag and func(root_node.right, flag)
-            else:
-                if root_node.left is None:
-                    return flag and True
-                else:
-                    return flag and root_node.left.val < root_node.val
-            if root_node.left.val < root_node.val < root_node.right.val:
-                return flag and True
-            else:
-                return flag and False
-
-        return func(root, True)
+        def func(root, min_val, max_val):
+            if root is None:
+                return True
+            elif root.val <= min_val or root.val >= max_val:
+                return False
+            return func(root.left, min_val, root.val) and func(root.right, root.val, max_val)
+        return func(root, -sys.maxsize-1, sys.maxsize)
 
 # @lc code=end
