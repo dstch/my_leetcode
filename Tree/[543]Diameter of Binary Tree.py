@@ -43,18 +43,18 @@
 #         self.right = right
 class Solution:
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
-        dic = {'max': 0}
+        value = 0
 
-        def func(node, length):
+        def func(node):
             if node:
-                lh = func(node.left, length)
-                rh = func(node.right, length)
-                dic['max'] = max(length, lh + rh)
+                lh = func(node.left)
+                rh = func(node.right)
+                nonlocal value
+                value = max(value, lh + rh)
                 return 1 + max(lh, rh)
             else:
                 return 0
 
-        func(root, 0)
-        return dic['max']
+        func(root)
 
 # leetcode submit region end(Prohibit modification and deletion)
