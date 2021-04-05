@@ -63,16 +63,14 @@ class Solution:
         res = []
 
         def func(node):
+            if not node:
+                return False
             if node:
-                func(node.left)
+                if k - node.val in res:
+                    return True
                 res.append(node.val)
-                func(node.right)
+                return func(node.left) or func(node.right)
 
-        func(root)
-        for i, v in enumerate(res):
-            t = k - v
-            if i - 1 < len(res) and t in res[i + 1:]:
-                return True
-        return False
+        return func(root)
 
 # leetcode submit region end(Prohibit modification and deletion)
