@@ -50,4 +50,5 @@ class Solution:
             return 0
         sub = max(self.longestUnivaluePath(root.left), self.longestUnivaluePath(root.right))
         return max(sub, func(root.left, root.val) + func(root.right, root.val))
+        # 这里比较的是左子树最长路径、右子树最长路径、和经过根节点的最长路径
 # leetcode submit region end(Prohibit modification and deletion)
