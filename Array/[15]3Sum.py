@@ -33,7 +33,7 @@ class Solution:
 
         for index, target in enumerate(nums):
             if index != 0 and nums[index] == nums[index - 1]:
-                continue  # 去除重复项
+                continue  # 去除重复项，因为在index的时候就找过，所以一旦在后续就不需要再找了
             left = index + 1
             right = len(nums) - 1
             while left < right:
@@ -42,7 +42,7 @@ class Solution:
                     res.append([nums[left], nums[right], target])
                     left += 1
                     right -= 1
-                    while left < right and nums[left] == nums[left - 1]:  # 去除重复项
+                    while left < right and nums[left] == nums[left - 1]:  # 去除重复项，如上述去除重复项一样的意思，只不过位置不同
                         left += 1
                 elif value + target > 0:
                     right -= 1
