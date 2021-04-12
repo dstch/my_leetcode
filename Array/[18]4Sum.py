@@ -52,7 +52,6 @@ class Solution:
                 while left < right:
                     s = a + nums[j] + nums[left] + nums[right]
                     if s == target:
-                        print(i, j, left, right)
                         res.append([a, nums[j], nums[left], nums[right]])
                         left += 1
                         right -= 1
