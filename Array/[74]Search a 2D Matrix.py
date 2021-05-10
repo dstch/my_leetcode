@@ -40,7 +40,6 @@ class Solution:
     def searchMatrix(self, matrix, target: int) -> bool:
         l = 0
         r = len(matrix) - 1
-        mid = 0
         while l <= r:
             mid = l + (r - l) // 2
             if matrix[mid][0] > target:
